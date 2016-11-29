@@ -77,7 +77,6 @@ public class VilleTest {
 		assertNotNull(ville.getId()); //Signifie que c'est une ville
 		
 		// suprimer l'ID ajouté
-			
 		restTemplate.delete("http://localhost:8000/villes/{villeId}", ville.getId());
 	}
 	

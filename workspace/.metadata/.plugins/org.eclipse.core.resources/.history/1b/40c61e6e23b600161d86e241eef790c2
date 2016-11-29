@@ -74,7 +74,7 @@ public class VilleController {
 	@RequestMapping(value = "/{villeId}", method = RequestMethod.DELETE)
 	//TODO 14 : Utiliser HttpEntity<Ville> pour le return type (ResponseEntity dans le Code) 
 	@Transactional
-	public void deleteVille(@PathVariable Long villeId) {
+	public void deleteVille(@PathVariable Long villeId, @RequestBody Ville ville) {
 		LOGGER.info("maj de la ville : "+villeId);
 
 		villeRepository.delete(villeId);

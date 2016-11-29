@@ -71,14 +71,10 @@ public class VilleTest {
 	@Test
 	public void testCreateVille(){
 		Ville ville = new Ville();
-		ville.setNom(VILLE_NOM_ADD);
+		ville.setNom("VILLE_NOM_ADD");
 		
-		ville = restTemplate.postForObject("http://localhost:8000/villes/", ville, Ville.class);		
+		restTemplate.postForObject("http://localhost:8000/villes/", ville, Ville.class);		
 		assertNotNull(ville.getId()); //Signifie que c'est une ville
-		
-		// suprimer l'ID ajouté
-			
-		restTemplate.delete("http://localhost:8000/villes/{villeId}", ville.getId());
 	}
 	
 	
