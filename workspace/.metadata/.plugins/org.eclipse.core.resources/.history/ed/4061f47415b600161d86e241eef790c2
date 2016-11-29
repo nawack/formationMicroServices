@@ -7,50 +7,21 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.zenika.microservices.resanet.controller.VilleController;
 import com.zenika.microservices.resanet.domain.Ville;
 
 
 //TODO 08 Mettre les annotations pour utiliser JUnitSpring4 et setup le contexte
 public class VilleTest {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(VilleTest.class);
-	
-	private static Long VILLE_ID = (long) 1;
-	private static String VILLE_NOM_ADD = "Brest";
-	
 	//TODO 09 : Créer le RestTemplate
+
 	private RestTemplate restTemplate = new RestTemplate();
-	
-	@Before
-	public void initTest () {
-		Ville ville = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, VILLE_ID);;
-		if (ville.getNom().equals("PARIS")) {
-			ville.setNom("Paris");
-		}
-		
-	}
-	
-	@After
-	public void clearTest () {
-		Ville ville = new Ville();
-		ville.setNom("Paris");
-		HttpEntity<Ville> req = new HttpEntity<Ville>(ville);
-		
-		restTemplate.put("http://localhost:8000/villes/" + VILLE_ID, req);		
-		
-		restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, VILLE_ID);		
-	}
 	
 	//TODO 10 décommenter 
 	@Test
@@ -63,7 +34,7 @@ public class VilleTest {
 	//TODO 11
 	@Test
 	public void testGetId(){
-		Ville ville = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, VILLE_ID);		
+		Ville ville = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, 1);		
 		assertEquals("Paris",ville.getNom());
 	}
 
@@ -71,7 +42,7 @@ public class VilleTest {
 	@Test
 	public void testCreateVille(){
 		Ville ville = new Ville();
-		ville.setNom("VILLE_NOM_ADD");
+		ville.setNom("Brest");
 		
 		restTemplate.postForObject("http://localhost:8000/villes/", ville, Ville.class);		
 		assertNotNull(ville.getId()); //Signifie que c'est une ville
@@ -81,13 +52,22 @@ public class VilleTest {
 	//TODO 17 : Utiliser le restTemplate pour modifier une ville
 	@Test
 	public void testUpdateVille() throws URISyntaxException{
-		Ville ville = new Ville();
-		ville.setNom("PARIS");
+		Long villeId = (long) 1;
+		Ville ville = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, villeId);;
+		String tmp;
+		if (ville.getNom().equals("Paris")) {
+			ville.setNom("PARIS");
+			tmp = "PARIS";
+		} else {
+			ville.setNom("Paris");
+			tmp = "Paris";
+		}
+		
 		HttpEntity<Ville> req = new HttpEntity<Ville>(ville);
 		
-		restTemplate.put("http://localhost:8000/villes/" + VILLE_ID, req);		
+		restTemplate.put("http://localhost:8000/villes/" + villeId, req);		
 		
-		Ville villeTest = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, VILLE_ID);		
-		assertEquals("PARIS",villeTest.getNom());
+		Ville villeTest = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, villeId);		
+		assertEquals(tmp,villeTest.getNom());
 	}
 }

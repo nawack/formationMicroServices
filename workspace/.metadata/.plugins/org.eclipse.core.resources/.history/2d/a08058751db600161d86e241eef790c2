@@ -49,7 +49,21 @@ public class VilleController {
 		LOGGER.info("demande de la ville : "+villeId);
 		return villeRepository.findOne(villeId);
 	}
+	
+	@RequestMapping(value = "/{villeName}", method = RequestMethod.GET)
+	public Long readVille(@PathVariable String villeName) {
+		LOGGER.info("demande de la ville : "+villeName);
+		List<Ville> villeList = villeRepository.findAll();
 		
+		for(Iterator<Ville> i = villeList.iterator(); i.hasNext(); ) {
+			Ville ville = i.next();
+			if (ville.getNom().equals(villeName)) {
+				return ville.getId();
+			}
+		}
+		return (long) 0;
+	}
+	
 	//TODO 12 : 
 	//Ajouter @RequestMapping et @RequestBody
 	@RequestMapping(value = "/", method = RequestMethod.POST)
@@ -70,5 +84,4 @@ public class VilleController {
 		Ville villeTrouvee = villeRepository.findOne(villeId);
 		villeTrouvee.setNom(ville.getNom());
 	}
-
 }

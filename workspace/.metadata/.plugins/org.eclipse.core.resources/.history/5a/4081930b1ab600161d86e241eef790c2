@@ -1,6 +1,5 @@
 package com.zenika.microservices.resanet.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,7 +48,14 @@ public class VilleController {
 		LOGGER.info("demande de la ville : "+villeId);
 		return villeRepository.findOne(villeId);
 	}
-		
+	
+	// En plus du request mapping penser à mapper l'ID dans l'URI
+	@RequestMapping(value = "/{villeName}", method = RequestMethod.GET)
+	public Ville readVille(@PathVariable String villeName) {
+		LOGGER.info("demande de la ville : "+villeName);
+		return villeRepository.findOne(villeName);
+	}
+	
 	//TODO 12 : 
 	//Ajouter @RequestMapping et @RequestBody
 	@RequestMapping(value = "/", method = RequestMethod.POST)
@@ -70,5 +76,4 @@ public class VilleController {
 		Ville villeTrouvee = villeRepository.findOne(villeId);
 		villeTrouvee.setNom(ville.getNom());
 	}
-
 }

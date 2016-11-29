@@ -70,5 +70,4 @@ public class VilleController {
 		Ville villeTrouvee = villeRepository.findOne(villeId);
 		villeTrouvee.setNom(ville.getNom());
 	}
-
 }

@@ -10,24 +10,18 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.zenika.microservices.resanet.controller.VilleController;
 import com.zenika.microservices.resanet.domain.Ville;
 
 
 //TODO 08 Mettre les annotations pour utiliser JUnitSpring4 et setup le contexte
 public class VilleTest {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(VilleTest.class);
-	
 	private static Long VILLE_ID = (long) 1;
-	private static String VILLE_NOM_ADD = "Brest";
 	
 	//TODO 09 : Créer le RestTemplate
 	private RestTemplate restTemplate = new RestTemplate();
@@ -38,6 +32,7 @@ public class VilleTest {
 		if (ville.getNom().equals("PARIS")) {
 			ville.setNom("Paris");
 		}
+		
 		
 	}
 	
@@ -71,7 +66,7 @@ public class VilleTest {
 	@Test
 	public void testCreateVille(){
 		Ville ville = new Ville();
-		ville.setNom("VILLE_NOM_ADD");
+		ville.setNom("Brest");
 		
 		restTemplate.postForObject("http://localhost:8000/villes/", ville, Ville.class);		
 		assertNotNull(ville.getId()); //Signifie que c'est une ville

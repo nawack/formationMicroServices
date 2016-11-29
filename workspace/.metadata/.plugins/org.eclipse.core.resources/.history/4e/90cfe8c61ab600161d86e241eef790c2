@@ -39,6 +39,12 @@ public class VilleTest {
 			ville.setNom("Paris");
 		}
 		
+		Long villeId = restTemplate.getForObject("http://localhost:8000/villes/{villeName}", Long.class, VILLE_NOM_ADD);;
+		if (villeId > 0) {
+			Ville ville2 = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, villeId);
+			LOGGER.info("ville trouvé : "+villeName);
+		}
+		
 	}
 	
 	@After
