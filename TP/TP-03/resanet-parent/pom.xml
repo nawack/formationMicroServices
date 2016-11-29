@@ -1,0 +1,82 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.zenika.microservices.resanet</groupId>
+	<artifactId>resanet-03</artifactId>
+	<version>0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.3.RELEASE</version>
+	</parent>
+
+	<name>Resanet microservices parent project</name>
+
+	<properties>
+		<swagger.version>2.4.0</swagger.version>
+		<spring-boot.version>1.3.3.RELEASE</spring-boot.version>
+		<tp.version>0.0-SNAPSHOT</tp.version>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<MAIN.CLASS>Fill MAIN.CLASS properties in maven child projects</MAIN.CLASS>
+	</properties>
+
+	<modules>
+		<module>resanet-catalogue</module>
+		<module>resanet-reservations</module>
+	</modules>
+	
+	<build>
+		<pluginManagement>
+
+			<plugins>
+				<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>0.14.2</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>build</goal>
+							</goals>
+							<phase>package</phase>
+						</execution>
+					</executions>
+					<configuration>
+						<logDate>default</logDate>
+						<autoPull>true</autoPull>
+						<images>
+							<!-- Image holding the artifact of this build -->
+							<image>
+								<!-- Alias name which can used for linking containers during runtime -->
+								<alias>${project.artifactId}</alias>
+								<name>${project.artifactId}-zenika:${project.version}</name>
+
+								<!-- ....................................... -->
+								<!-- Build configuration for creating images -->
+								<!-- ....................................... -->
+								<build>
+									<assembly>
+										<descriptorRef>artifact-with-dependencies</descriptorRef>
+									</assembly>
+									<from>java:8u40</from>
+									<!-- Expose ports -->
+									<ports>
+										<port>8080</port>
+									</ports>
+									<!-- Default command for the build image -->
+									<entryPoint>java -cp '/maven/*' ${MAIN.CLASS}</entryPoint>
+								</build>
+							</image>
+						</images>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
