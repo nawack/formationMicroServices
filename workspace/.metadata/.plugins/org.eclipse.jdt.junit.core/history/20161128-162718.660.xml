@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun com.zenika.microservices.resanet.VilleTest" project="resanet-01" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="com.zenika.microservices.resanet.VilleTest" time="0.102">
-    <testcase name="testGetId" classname="com.zenika.microservices.resanet.VilleTest" time="0.087"/>
-    <testcase name="testGetList" classname="com.zenika.microservices.resanet.VilleTest" time="0.015"/>
-  </testsuite>
-</testrun>

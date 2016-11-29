@@ -1,0 +1,12 @@
+package com.zenika.microservices.resanet.configuration;
+
+
+//TODO 02 ajouter l'annotation pour mettre en place le config serveur
+@SpringBootApplication
+public class ConfigurationApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ConfigurationApplication.class, args);
+	}
+
+}

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: resanet-catalogue-04
+  cloud:
+    config:
+      uri: http://localhost:8888/

@@ -1,0 +1,13 @@
+##TODO 03
+
+##TODO 04
+
+## TODO 05
+
+server:
+  port: 8888
+
+
+endpoints:
+    restart:
+      enabled: true

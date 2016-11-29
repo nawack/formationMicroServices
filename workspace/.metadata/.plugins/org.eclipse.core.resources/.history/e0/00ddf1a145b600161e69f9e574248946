@@ -1,0 +1,23 @@
+##TODO 03
+spring:
+  application:
+    name: resanet-config
+##TODO 04
+  profiles:
+    active: native
+
+## TODO 05
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: classpath:/config/
+
+server:
+  port: 8888
+
+
+endpoints:
+    restart:
+      enabled: true
+      
