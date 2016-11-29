@@ -1,0 +1,14 @@
+rabbit3:
+  image: bijukunjummen/rabbitmq-server
+  hostname: rabbit4
+  external_links:
+    - cluster12_rabbit1_1
+    - cluster12_rabbit2_1
+    - node3_rabbit3_1
+  environment: 
+     - CLUSTERED=true
+     - CLUSTER_WITH=rabbit1
+     - RAM_NODE=true
+  ports:
+      - "5675:5672"
+      - "15675:15672"
