@@ -1,0 +1,99 @@
+<h1>{{title}}</h1>
+<h2>Transports</h2>
+<ul class="heroes">
+  <li *ngFor="#transport of transports"
+    [class.selected]="transport === selectedTransport"
+    (click)="onSelect(transport)">
+    <span class="badge">{{transport.id}}</span> {{transport.villeDepart.nom}} - {{transport.villeArrivee.nom}}
+  </li>
+</ul>
+<div *ngIf="selectedTransport">
+  	<h2>{{selectedTransport.villeDepart.nom}}/{{selectedTransport.villeArrivee.nom}} - Horaires :</h2>
+	<ul class="heroes">
+	  <li *ngFor="#transport of selectedTransports">
+	    <span class="badge">{{transport.dateDepart}}</span> {{transport.heureDepart}} - {{transport.heureArrivee}}
+	  </li>
+	</ul>
+</div>
+<!-- <ul class="heroes">
+  <li *ngFor="#ville of villes">
+    <span class="badge">{{ville.id}}</span> {{ville.nom}}
+  </li>
+</ul> -->
+
+<div ng-controller="MyCtrl">
+  <form>
+    <fieldset>
+      <legend>Filters</legend>
+      Type: <input ng-model='filterExpr' type="radio" name="dtype" value="Train" checked> Train
+            <input ng-model='filterExpr' type="radio" name="dtype" value="Avion"> Avion<br>
+      <hr>
+      <ul>
+          <li *ngFor="#transport of (transports | dtypeFilter)">{{transport.id}}</li>
+      </ul>
+      <hr> 
+    </fieldset>
+  </form>
+</div>
+
+
+<!-- <div class="container">
+    <h1>Add new Transport</h1>
+    <form #form="ngForm" (submit)="addForm(form.value)">
+      <div class="form-group">
+        <label for="dtype">Type</label>
+        <select class="form-control" required>
+          <option [value]="train">Train</option>
+          <option [value]="avion">Avion</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="compagnie">Company</label>
+        <input type="text" class="form-control" required ngControl="compagnie">
+      </div>
+      <div class="form-group">
+        <label for="ville_d">Departure City </label>
+        <select class="form-control" required>
+          <option *ngFor="#v of villes" [value]="v">{{v.nom}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ville_a">Arrival City</label>
+        <select class="form-control" required>
+          <option *ngFor="#v of villes" [value]="v">{{v.nom}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="dep_time">Departure Time</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="arr_time">Arrival Time</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="numb_seat">Number of seat</label>
+        <input type="text" class="form-control" required ngControl="nb_sieges_total">
+      </div>
+      <div class="form-group">
+        <label for="numb_wag">Number of wagon</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="wagon_bar">Has bar-wagon</label>
+        <select class="form-control" required>
+          <option [value]="true">Yes</option>
+          <option [value]="false">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="type">Type of vehicule</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-default">Create</button>
+    </form>
+</div> -->

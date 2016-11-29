@@ -1,0 +1,66 @@
+package com.zenika.microservices.resanet;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+import org.junit.Test;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
+import org.springframework.web.client.RestTemplate;
+
+import com.zenika.microservices.resanet.domain.Ville;
+
+
+//TODO 08 Mettre les annotations pour utiliser JUnitSpring4 et setup le contexte
+public class VilleTest {
+
+	//TODO 09 : Créer le RestTemplate
+
+	private RestTemplate restTemplate = new RestTemplate();
+	
+	//TODO 10 décommenter 
+	@Test
+	public void testGetList(){
+		//List<Ville> villes = restTemplate. ...
+		List<Ville> villes = restTemplate.getForObject("http://localhost:8000/villes/", List.class);		
+		assertEquals(4, villes.size());
+	}
+	
+	//TODO 11
+	@Test
+	public void testGetId(){
+		Ville ville = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, 1);		
+		assertEquals("Paris",ville.getNom());
+	}
+
+	//TODO 12 : Utiliser le restTemplate pour créer une ville
+	@Test
+	public void testCreateVille(){
+		Ville ville = new Ville();
+		ville.setNom("Brest");
+		
+		restTemplate.postForObject("http://localhost:8000/villes/", ville, Ville.class);		
+		assertNotNull(ville.getId()); //Signifie que c'est une ville
+	}
+	
+	
+	//TODO 17 : Utiliser le restTemplate pour modifier une ville
+	@Test
+	public void testUpdateVille() throws URISyntaxException{
+		Ville ville = new Ville();
+		ville.setNom("PARIS");
+		
+		
+		HttpEntity<Ville> req = new RequestEntity<Ville>(ville, HttpMethod.PUT, new URI("http://localhost:8000/villes/{villeId}"));
+
+		restTemplate.put("http://localhost:8000/villes/{villeId}", ville, Ville.class, 1);		
+		
+		Ville villeTest = restTemplate.getForObject("http://localhost:8000/villes/{villeId}", Ville.class, 1);		
+		assertEquals("PARIS",villeTest.getNom());
+	}
+}

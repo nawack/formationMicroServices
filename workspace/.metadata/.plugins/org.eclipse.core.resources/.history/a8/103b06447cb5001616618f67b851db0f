@@ -1,0 +1,59 @@
+package com.zenika.microservices.resanet;
+
+import java.util.List;
+
+import org.springframework.web.client.RestTemplate;
+
+import com.zenika.microservices.resanet.domain.Ville;
+
+import static org.junit.Assert.*;
+
+//TODO 08 Mettre les annotations pour utiliser JUnitSpring4 et setup le contexte
+public class VilleTest {
+
+	//TODO 09 : Créer le RestTemplate
+	private RestTemplate restTemplate;
+	
+	//TODO 10 décommenter 
+	//@Test
+	public void testGetList(){
+		//List<Ville> villes = restTemplate. ...
+				
+		//assertEquals(4, villes.size());
+	}
+	
+	//TODO 11
+	//@Test
+	public void testGetId(){
+		//Ville ville = restTemplate.
+		
+		
+		//assertEquals("Paris",ville.getName())
+	}
+
+	//TODO 13 : Utiliser le restTemplate pour créer une ville
+	//@Test
+	public void testCreateVille(){
+		Ville ville = new Ville();
+		ville.setNom("Brest");
+		
+				
+		//restTemplate. faire le post
+				
+				
+		//assertNotNull(ville.getId()) //Signifie que c'est une ville
+	}
+	
+	
+	//TODO 13 : Utiliser le restTemplate pour créer une ville
+	public void testUpdateVille(){
+		Ville ville = new Ville();
+		ville.setNom("Brest");
+		
+				
+		//restTemplate. faire le post
+				
+				
+		//assertNotNull(ville.getId()) //Signifie que c'est une ville
+	}
+}

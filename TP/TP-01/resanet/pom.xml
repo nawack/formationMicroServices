@@ -1,0 +1,192 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.zenika.microservices.resanet</groupId>
+	<artifactId>resanet-01</artifactId>
+	<version>0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.3.RELEASE</version>
+	</parent>
+
+	<name>Resanet monolith project ie Big Bull of Mud</name>
+
+	<properties>
+		<spring-boot.version>1.3.3.RELEASE</spring-boot.version>
+		<tp.version>0.0-SNAPSHOT</tp.version>
+		<swagger.version>2.4.0</swagger.version>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<MAIN.CLASS>com.zenika.microservices.resanet.starter.Application</MAIN.CLASS>
+	</properties>
+
+	<dependencies>
+		<!-- Spring Boot -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Hibernate validator -->
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Java EE -->
+
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<!-- Ajout de json path -->
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.2.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path-assert</artifactId>
+			<version>2.2.0</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- Documentation -->
+
+		<!-- TODO: 01 : -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.14.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<logDate>default</logDate>
+					<autoPull>true</autoPull>
+					<images>
+						<image>
+							<alias>db</alias>
+							<name>${project.artifactId}-db:${project.version}</name>
+
+							<!-- ....................................... -->
+							<!-- Build configuration for creating images -->
+							<!-- ....................................... -->
+							<build>
+								<from>oscarfonts/h2</from>
+								<ports>
+									<port>81</port>
+								</ports>
+								<!-- Default command for the build image -->
+							</build>
+						</image>
+						<!-- Image holding the artifact of this build -->
+						<image>
+							<!-- Alias name which can used for linking containers during runtime -->
+							<alias>${project.artifactId}</alias>
+							<name>${project.artifactId}-zenika:${project.version}</name>
+
+							<!-- ....................................... -->
+							<!-- Build configuration for creating images -->
+							<!-- ....................................... -->
+							<build>
+								<assembly>
+									<descriptorRef>artifact-with-dependencies</descriptorRef>
+								</assembly>
+								<from>java:8u40</from>
+								<!-- Expose ports -->
+								<ports>
+									<port>8080</port>
+								</ports>
+								<!-- Default command for the build image -->
+								<entryPoint>java -cp '/maven/*' ${MAIN.CLASS}
+									--datasource=jdbc:h2:tcp://resanet-db:1521/resanet</entryPoint>
+							</build>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
+
+			<!-- Spring Boot Maven -->
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

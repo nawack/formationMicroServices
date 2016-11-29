@@ -1,0 +1,17 @@
+package com.zenika.microservices.resanet.starter;
+
+import org.springframework.boot.SpringApplication;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@EnableSwagger2
+
+// TODO 01 : Ajouter l'annotation pour SpringBoot et demander de scanner les packages de services et controller
+// TODO 02 : Ajouter l'annotation pour scanner les entités JPA dans le package domain
+// TODO 03 : Ajouter l'annotation pour rajouter les repository Spring-Data Jpa depuis repository
+public class Application  {
+
+    public static void main(final String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}

@@ -1,0 +1,60 @@
+package com.zenika.microservices.resanet.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zenika.microservices.resanet.domain.Ville;
+import com.zenika.microservices.resanet.repository.VilleRepository;
+
+//TODO 05 : Ajouter les annotations pour respectivement avoir un controller REST et mapper l'URI villes
+@RestController
+@RequestMapping("/villes")
+@CrossOrigin //Comment pour une IHM
+public class VilleController {
+
+	private final VilleRepository villeRepository;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(VilleController.class);
+	
+	@Inject
+	public VilleController(final VilleRepository villeRepository) {
+		this.villeRepository = villeRepository;
+	}
+
+	//TODO 06 : 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public List<Ville> getList() {
+		return villeRepository.findAll();
+	}
+	
+	
+	//TODO 07 :
+	// En plus du request mapping penser à mapper l'ID dans l'URI
+	@RequestMapping(value = "/{villeId}", method = RequestMethod.GET)
+	public Ville readVille(@PathVariable Long villeId) {
+		LOGGER.info("demande de la ville : "+villeId);
+		return villeRepository.findOne(villeId);
+	}
+	
+	//TODO 12 : 
+	//Ajouter @RequestMapping et @RequestBody
+	@RequestMapping(value = "/", method = RequestMethod.PUT)
+	//TODO 14 : Utiliser HttpEntity<Ville> pour le return type (ResponseEntity dans le Code) 
+	public @ResponseBody Ville setVille(@RequestParam Ville ville) {
+		Ville result = villeRepository.saveAndFlush(ville);
+		return result;
+	}
+
+	
+}
