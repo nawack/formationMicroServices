@@ -1,0 +1,30 @@
+version: '2' 
+services:
+    resanet-catalogue:
+        image: resanet-catalogue-07-zenika:0.0-SNAPSHOT
+        ports:
+           - "127.0.0.1:8081:8001"
+           - "127.0.0.1:80:80"
+           - "127.0.0.1:81:81"
+           - "127.0.0.1:2003:2003"
+        depends_on:
+           - resanet-db
+    resanet-reservations:
+        image: resanet-reservations-07-zenika:0.0-SNAPSHOT
+        ports:
+           - "127.0.0.1:8080:8000"
+        depends_on:
+           - resanet-db
+    resanet-db:
+        image: resanet-08-db:0.0-SNAPSHOT
+        ports:
+            - "127.0.0.1:8082:1521"
+            - "127.0.0.1:82:81"
+        volumes:
+            - ./h2-data:/opt/h2-data
+    graphana:
+        image: kamon/grafana_graphite
+        network_mode: "service:resanet-catalogue"
+        volumes:
+            - ./data/whisper:/opt/graphite/storage/whisper
+            - ./log/graphite:/opt/graphite/storage/log/webapp

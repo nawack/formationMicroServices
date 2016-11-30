@@ -20,6 +20,13 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/home/zenika/Documents/Formation/TP-07-Solution"/>
+			<item value="/home/zenika/Documents/Formation/TP/TP-07/resanet-parent"/>
+			<item value="/home/zenika/Documents/Formation/TP/TP-05/resanet-eureka-server"/>
+			<item value="/home/zenika/Documents/Formation/TP/TP-06/resanet-eureka-server"/>
+			<item value="/home/zenika/Documents/Formation/TP/TP-06"/>
+			<item value="/home/zenika/Documents/Formation/TP/TP-05"/>
+			<item value="/home/zenika/Documents/Formation/TP/TP-05/resanet-parent"/>
 			<item value="/home/zenika/Documents/Formation/TP/TP-00/resanet"/>
 		</list>
 		<list key="projectNameTemplate">

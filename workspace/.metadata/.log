@@ -1662,3 +1662,9 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/resanet-eureka
 
 !ENTRY org.eclipse.debug.core 4 5012 2016-11-30 13:59:27.185
 !MESSAGE Launch configuration New_configuration at file:/home/zenika/Documents/Formation/workspace/.metadata/.plugins/org.eclipse.debug.core/.launches/New_configuration.launch does not exist.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2016-11-30 16:12:55.419
+!MESSAGE Server returned lastModified <= 0 for https://raw.github.com/guari/eclipse-ui-theme/master/com.github.eclipseuitheme.themes.updatesite/content.jar
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2016-11-30 16:24:17.132
+!MESSAGE Server returned lastModified <= 0 for https://raw.github.com/guari/eclipse-ui-theme/master/com.github.eclipseuitheme.themes.updatesite/artifacts.jar

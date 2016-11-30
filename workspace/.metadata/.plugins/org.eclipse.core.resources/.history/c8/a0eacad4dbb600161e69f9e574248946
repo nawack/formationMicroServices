@@ -1,4 +1,0 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ##TODO 07 mettre l'url du serveur eureka

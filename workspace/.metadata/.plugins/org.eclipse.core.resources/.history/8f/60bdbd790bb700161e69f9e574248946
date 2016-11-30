@@ -1,0 +1,5 @@
+package com.zenika.microservices.resanet.metric;
+
+public interface Endpoint {
+
+}

@@ -9,5 +9,10 @@
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/resanet-05" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/resanet-reservations-05" type="4"/>
 </workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1480514502362_3" label="resanet-07" name="resanet-07">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/resanet-catalogue-07" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/resanet-07" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/resanet-reservations-07" type="4"/>
+</workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1480327754465_0" label="Window Working Set" name="Aggregate for window 1480327754465"/>
 </workingSetManager>
