@@ -1,0 +1,19 @@
+server:
+    port: 8001
+    host : localhost
+
+tomcat:
+    accessLogEnabled: false
+    protocolHeader: x-forwarded-proto
+    remoteIpHeader: x-forwarded-for
+    backgroundProcessorDelay: 30
+    
+spring:
+    datasource:
+        url: jdbc:h2:tcp://localhost/~/resanet
+        username: sa
+        password:
+        driverClassName: org.h2.Driver 
+            
+management:
+    context-path:/admin

@@ -1,0 +1,162 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>resanet-reservations-05</artifactId>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>com.zenika.microservices.resanet</groupId>
+		<artifactId>resanet-05</artifactId>
+		<version>0.0-SNAPSHOT</version>
+	</parent>
+
+	<name>Reservations provider microservice</name>
+
+
+	<properties>
+		<MAIN.CLASS>com.zenika.microservices.resanet.reservations.starter.Application</MAIN.CLASS>
+	</properties>
+
+	<dependencies>
+		<!-- Spring Boot -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Spring cloud -->
+		<!--TODO ajouter Eureka client -->
+
+		<!-- Hibernate validator -->
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Java EE -->
+
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<!-- Documentation -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<!-- Spring Boot Maven -->
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+
+
+			<!-- docker activation -->
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
+        <repositories>
+                <repository>
+                        <id>spring-snapshots</id>
+                        <name>Spring Snapshots</name>
+                        <url>http://repo.spring.io/libs-snapshot-local</url>
+                        <snapshots>
+                                <enabled>true</enabled>
+                        </snapshots>
+                </repository>
+                <repository>
+                        <id>spring-milestones</id>
+                        <name>Spring Milestones</name>
+                        <url>http://repo.spring.io/libs-milestone-local</url>
+                        <snapshots>
+                                <enabled>false</enabled>
+                        </snapshots>
+                </repository>
+                <repository>
+                        <id>spring-releases</id>
+                        <name>Spring Releases</name>
+                        <url>http://repo.spring.io/libs-release-local</url>
+                        <snapshots>
+                                <enabled>false</enabled>
+                        </snapshots>
+                </repository>
+        </repositories>
+        <pluginRepositories>
+                <pluginRepository>
+                        <id>spring-snapshots</id>
+                        <name>Spring Snapshots</name>
+                        <url>http://repo.spring.io/libs-snapshot-local</url>
+                        <snapshots>
+                                <enabled>true</enabled>
+                        </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                        <id>spring-milestones</id>
+                        <name>Spring Milestones</name>
+                        <url>http://repo.spring.io/libs-milestone-local</url>
+                        <snapshots>
+                                <enabled>false</enabled>
+                        </snapshots>
+                </pluginRepository>
+        </pluginRepositories>
+
+
+</project>

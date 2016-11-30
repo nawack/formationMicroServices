@@ -1,0 +1,7 @@
+version: '2'
+services: 
+   resanet-reservations:
+      image: resanet-reservations-zenika:0.0-SNAPSHOT 
+   resanet-catalogue:
+      image: resanet-catalogue-zenika:0.0-SNAPSHOT
+
