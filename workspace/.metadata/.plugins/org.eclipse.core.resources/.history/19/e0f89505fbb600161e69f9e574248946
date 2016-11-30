@@ -1,0 +1,17 @@
+package com.zenika.microservices.resanet.catalog.services;
+
+import java.util.List;
+
+import com.zenika.microservices.resanet.catalog.domain.Transport;
+
+public interface TransportService {
+
+	String ajouterTransport(Transport transport);
+	
+	List<Transport> findAll();
+
+	public	String	ajouterTransport(Transport	transport)	{
+		Transport	t	=	transportRepository.save(transport);
+		return	t.getId();
+}
+}

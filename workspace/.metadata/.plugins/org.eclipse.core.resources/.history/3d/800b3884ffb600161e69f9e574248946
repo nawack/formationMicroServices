@@ -1,0 +1,74 @@
+package com.zenika.microservices.resanet.catalog.services;
+
+import java.util.List;
+import java.util.UUID;
+
+import javax.inject.Inject;
+
+import org.springframework.jmx.export.annotation.ManagedAttribute;
+import org.springframework.jmx.export.annotation.ManagedOperation;
+import org.springframework.jmx.export.annotation.ManagedOperationParameter;
+import org.springframework.jmx.export.annotation.ManagedOperationParameters;
+import org.springframework.jmx.export.annotation.ManagedResource;
+import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Lists;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.zenika.microservices.resanet.catalog.domain.Transport;
+import com.zenika.microservices.resanet.catalog.repository.TransportRepository;
+
+@Service
+//TODO 03b ajouter managed ressource
+@ManagedResource
+public class TransportServiceImpl implements TransportService {
+
+	//TODO 02
+	private boolean fail = false;
+	
+	private TransportRepository transportRepository;
+	
+	@Inject
+	public TransportServiceImpl(final TransportRepository transportRepository) {
+		this.transportRepository = transportRepository;
+	}
+
+	@Override
+	//TODO 04 b
+	@HystrixCommand(fallbackMethod="alternateTransportAdd")
+	public String ajouterTransport(Transport transport) {
+		if(fail){
+			throw new RuntimeException("Failure choosed - circuit breaker will be activated");
+		}
+		Transport t = transportRepository.save(transport);
+		System.out.println("NormalAdd : " + t.getId());
+		return t.getId();
+	}
+
+	@Override
+	public List<Transport> findAll() {
+		return Lists.newArrayList(transportRepository.findAll());
+	}
+	
+	//TODO 05
+	public String alternateTransportAdd(Transport t){
+		String commandId = UUID.randomUUID().toString();
+		System.out.println("alternate : " + commandId);
+		return commandId;
+	}
+	
+	//TODO 03c ajouter le managed attribute
+	@ManagedAttribute
+	public boolean isFail() {
+		return fail;
+	}
+
+	//TODO 03d Décommenter après avoir ajouté MBean Export
+	@ManagedOperation(description="change the value of failure")
+    @ManagedOperationParameters({
+    @ManagedOperationParameter(name="fail", description="fail true/false")}
+    )
+	public void setFail(boolean fail) {
+		this.fail = fail;
+	}
+	
+}

@@ -1,0 +1,15 @@
+server:
+  port: 8001
+
+spring:
+    application:
+        name: resanet-catalogue-06
+    cloud:
+        config:
+            uri: http://localhost:8888/
+            
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+    leaseRenewalIntervalInSeconds: 10  
